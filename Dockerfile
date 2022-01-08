@@ -14,6 +14,6 @@ RUN npm run build
 FROM nginx
 EXPOSE 80
 # needs to get a port map to 80
-# beanstalk will look at expose instructiion
+# beanstalk will look at expose instruction and map automatically
 COPY --from=builder /app/build /usr/share/nginx/html
 #copy something from other phase
