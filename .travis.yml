@@ -28,5 +28,5 @@ deploy:
     #only deploy when master changed
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key:
-        secure: "$AWS_SECRET_KEY"
+        secure: "$AWS_SECRET_ACCESS_KEY"
     #We need to add env variable in Travis CI to securely add AWS key
