@@ -11,3 +11,22 @@ script:
   - docker run -e CI=true chuweih/docker-react npm run test
   #because nom test run doesnt exit automatically so  -e CI=true is added
   #or for non-CI env, we use --watchAll=false to disable watcher
+
+deploy:
+    provider: elasticbeanstalk
+    region: "ap-northeast-1"
+    #region of our elastic beanstalk
+    app: "docker-react" #app name of beanstalk
+    env: "Dockerreact-env"
+    bucket_name: "elasticbeanstalk-ap-northeast-1-069033790535"
+    #when deploying, travis CI get all files in repo and zip and copy to S3 and tell beanstalk to re-deploy app
+    #already created when starting beanstalk and can get name in S3
+    bucket_path: "docker-react"
+    #s3 is reused for multi projects and the folder for proj is created auto when first deploy, so use app name here
+    on:
+        branch: master
+    #only deploy when master changed
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+        secure: "$AWS_SECRET_KEY"
+    #We need to add env variable in Travis CI to securely add AWS key
