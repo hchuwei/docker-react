@@ -1,0 +1,13 @@
+language: generic 
+sudo: required
+services:
+    - docker
+before_install: #a set of cmds executed before test/deploy
+    - docker build -t chuweih/docker-react -f Dockerfile.dev .
+    #using tag for easier reference
+    #if just intermediate image we can use sth like MYIMAGE TESTME etc
+script:
+    #cmd needed to actaully run test suite
+  - docker run -e CI=true chuweih/docker-react npm run test
+  #because nom test run doesnt exit automatically so  -e CI=true is added
+  #or for non-CI env, we use --watchAll=false to disable watcher
